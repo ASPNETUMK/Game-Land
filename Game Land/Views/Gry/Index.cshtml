@@ -1,47 +1,39 @@
 ﻿@model IEnumerable<TNAI.Model.Entities.Gry>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Koncik Admina";
 }
 
-<h1>Index</h1>
+<h1>Produkty sklepu </h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Key)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Url_image)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Key)
-            </td>
-            <td>
-               <img src="@Html.DisplayFor(modelItem => item.Url_image)">
-            </td>
-            <td>
+    <div class="card-lifted overflow-hidden rounded-3 mb-3">
+
+       
+
+
+
+
+
+
+
+
+
+
+
+        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+           <img class="col-10" src="/Image/@Html.DisplayFor(modelItem => item.Url_image)">
+        <h6>KEY:@Html.DisplayFor(modelItem => item.Key)</h6>
+                
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+   </div>
+   <div class="col-12"></div>
+     }
+           
+
