@@ -1,6 +1,8 @@
 ﻿using Game_Land.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
+using TNAI.Model.Entities;
 
 namespace Game_Land.Controllers
 {
@@ -17,6 +19,13 @@ namespace Game_Land.Controllers
         {
             return View();
         }
+        public IActionResult ONas()
+        {
+            return View();
+        }
+        
+       
+       
 
         public IActionResult Privacy()
         {

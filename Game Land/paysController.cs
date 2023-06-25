@@ -6,118 +6,92 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Game_Land.Data;
+using Game_Land.Entities;
 using TNAI.Model.Entities;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Game_Land
 {
-    public class GryController : Controller
+    public class paysController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public GryController(ApplicationDbContext context)
+        public paysController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Gry
-        [Authorize]
+        // GET: pays
         public async Task<IActionResult> Index()
         {
-              return _context.Gry != null ? 
-                          View(await _context.Gry.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Gry'  is null.");
+              return _context.pay != null ? 
+                          View(await _context.pay.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.pay'  is null.");
         }
-        // GET: Gry/Details/5
-        [Authorize]
+
+        // GET: pays/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Gry == null)
+            if (id == null || _context.pay == null)
             {
                 return NotFound();
             }
 
-            var gry = await _context.Gry
+            var pay = await _context.pay
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (gry == null)
+            if (pay == null)
             {
                 return NotFound();
             }
 
-            return View(gry);
+            return View(pay);
         }
 
-        // GET: Gry/Create
-        [Authorize]
+        // GET: pays/Create
         public IActionResult Create()
         {
-            
             return View();
         }
 
-        // POST: Gry/Create
+        // POST: pays/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name,Key,Url_image")] Gry gry)
+        public async Task<IActionResult> Create([Bind("id,Name,Last_Name,Number,time")] pay pay)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(gry);
+                _context.Add(pay);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(gry);
+            return View(pay);
         }
-        [Authorize]
-        // GET: Gry/Edit/5
+
+        // GET: pays/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Gry == null)
+            if (id == null || _context.pay == null)
             {
                 return NotFound();
             }
 
-            var gry = await _context.Gry.FindAsync(id);
-            if (gry == null)
+            var pay = await _context.pay.FindAsync(id);
+            if (pay == null)
             {
                 return NotFound();
             }
-            return View(gry);
+            return View(pay);
         }
 
-        public IActionResult end()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> kup(Gry gry)
-        {
-            View().ViewData.Values.Clear();
-            View().ViewData.Values.Add(end);
-            return View();
-        }
-
-        public async Task<IActionResult> list()       
-         {
-            return _context.Gry != null ?
-                           View(await _context.Gry.ToListAsync()) :
-                           Problem("Entity set 'ApplicationDbContext.Gry'  is null.");
-        }
-
-        // POST: Gry/Edit/5
+        // POST: pays/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Name,Key,Url_image")] Gry gry)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Name,Last_Name,Number,time")] pay pay)
         {
-            if (id != gry.id)
+            if (id != pay.id)
             {
                 return NotFound();
             }
@@ -126,12 +100,12 @@ namespace Game_Land
             {
                 try
                 {
-                    _context.Update(gry);
+                    _context.Update(pay);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GryExists(gry.id))
+                    if (!payExists(pay.id))
                     {
                         return NotFound();
                     }
@@ -142,50 +116,49 @@ namespace Game_Land
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(gry);
+            return View(pay);
         }
-        [Authorize]
-        // GET: Gry/Delete/5
+
+        // GET: pays/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Gry == null)
+            if (id == null || _context.pay == null)
             {
                 return NotFound();
             }
 
-            var gry = await _context.Gry
+            var pay = await _context.pay
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (gry == null)
+            if (pay == null)
             {
                 return NotFound();
             }
 
-            return View(gry);
+            return View(pay);
         }
 
-        // POST: Gry/Delete/5
-        [Authorize]
+        // POST: pays/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Gry == null)
+            if (_context.pay == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Gry'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.pay'  is null.");
             }
-            var gry = await _context.Gry.FindAsync(id);
-            if (gry != null)
+            var pay = await _context.pay.FindAsync(id);
+            if (pay != null)
             {
-                _context.Gry.Remove(gry);
+                _context.pay.Remove(pay);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GryExists(int id)
+        private bool payExists(int id)
         {
-          return (_context.Gry?.Any(e => e.id == id)).GetValueOrDefault();
+          return (_context.pay?.Any(e => e.id == id)).GetValueOrDefault();
         }
     }
 }

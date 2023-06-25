@@ -1,0 +1,17 @@
+﻿@model IEnumerable<TNAI.Model.Entities.Gry>
+
+@{
+    ViewData["Title"] = "Gry";
+}
+
+<h1>Nasze Gry</h1>
+
+@foreach (var item in Model)
+{
+    <div class="card-lifted overflow-hidden rounded-3 mb-3">
+        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+        <img class="col-10" src="/Image/@Html.DisplayFor(modelItem => item.Url_image)">
+    </div>
+    <a class="btn" asp-area="" asp-controller="pays" asp-action="Create"><button>Kup</button></a>
+    <div class="col-12"></div>
+}
