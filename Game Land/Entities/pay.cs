@@ -10,6 +10,7 @@ namespace Game_Land.Entities
         public string Last_Name { get; set; }
         public string Number { get; set; }
         public string time { get; set; }
+        public string id_User{ get; set; }
 
     }
 }

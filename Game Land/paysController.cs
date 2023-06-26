@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Game_Land.Data;
 using Game_Land.Entities;
 using TNAI.Model.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Game_Land
 {
@@ -19,7 +20,7 @@ namespace Game_Land
         {
             _context = context;
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: pays
         public async Task<IActionResult> Index()
         {
@@ -27,7 +28,7 @@ namespace Game_Land
                           View(await _context.pay.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.pay'  is null.");
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: pays/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -45,9 +46,13 @@ namespace Game_Land
 
             return View(pay);
         }
-
         // GET: pays/Create
+        [Authorize]
         public IActionResult Create()
+        {
+            return View();
+        }
+        public IActionResult end()
         {
             return View();
         }
@@ -55,6 +60,7 @@ namespace Game_Land
         // POST: pays/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Name,Last_Name,Number,time")] pay pay)
@@ -63,11 +69,11 @@ namespace Game_Land
             {
                 _context.Add(pay);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(end));
             }
             return View(pay);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: pays/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -87,6 +93,7 @@ namespace Game_Land
         // POST: pays/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,Name,Last_Name,Number,time")] pay pay)
@@ -118,7 +125,7 @@ namespace Game_Land
             }
             return View(pay);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: pays/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -136,7 +143,7 @@ namespace Game_Land
 
             return View(pay);
         }
-
+        [Authorize(Roles = "Admin")]
         // POST: pays/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
