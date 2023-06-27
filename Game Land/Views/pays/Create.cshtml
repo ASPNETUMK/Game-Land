@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+
 }
 
 <h1>Create</h1>
@@ -32,6 +33,9 @@
                 <input asp-for="time" class="form-control" />
                 <span asp-validation-for="time" class="text-danger"></span>
             </div>
+            
+            <input asp-for="id_Game" type="hidden" value=@Model.id_Game />
+            <span asp-validation-for="id_Game"  class="text-danger"></span>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

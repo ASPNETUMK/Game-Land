@@ -11,6 +11,7 @@ namespace Game_Land.Entities
         public string Number { get; set; }
         public string time { get; set; }
         public string id_User{ get; set; }
+        public int id_Game { get; set; }
 
     }
 }

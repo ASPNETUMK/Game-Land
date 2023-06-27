@@ -1,0 +1,13 @@
+﻿@model IEnumerable<TNAI.Model.Entities.Gry>
+
+
+@foreach (var item in Model)
+{
+    <div class="card-lifted overflow-hidden rounded-3 mb-3 text-center" style="background-color:cadetblue">
+        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+        <img class="col-10" src="/Image/@Html.DisplayFor(modelItem => item.Url_image)">
+        <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
+        <a asp-area="" asp-controller="pays" asp-action="Create" asp-route-id=@item.id><button>Kup</button></a>
+    </div>
+    <div class="col-12"></div>
+}

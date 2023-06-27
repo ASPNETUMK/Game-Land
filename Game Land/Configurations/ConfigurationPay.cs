@@ -16,6 +16,8 @@ namespace TNAI.Model.Configurations
             builder.Property(x => x.Name).HasMaxLength(500);
             builder.Property(x => x.Number).HasMaxLength(500);
             builder.Property(x => x.time).HasMaxLength(500);
+            builder.Property(x => x.id_User).HasMaxLength(500);
+           
         }
     }
 }

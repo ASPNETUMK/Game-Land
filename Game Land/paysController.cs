@@ -9,16 +9,20 @@ using Game_Land.Data;
 using Game_Land.Entities;
 using TNAI.Model.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Humanizer;
 
 namespace Game_Land
 {
     public class paysController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public paysController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        
+        public paysController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         [Authorize(Roles = "Admin")]
         // GET: pays
@@ -48,30 +52,33 @@ namespace Game_Land
         }
         // GET: pays/Create
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(int  id)
         {
-            return View();
+            pay pay = new pay();
+            pay.id_Game = id;
+            return View(pay);
         }
-        public IActionResult end()
+        public IActionResult end(String key)
         {
-            return View();
+            return View(key);
         }
 
         // POST: pays/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Name,Last_Name,Number,time")] pay pay)
+        public async Task<IActionResult> Create([Bind("Name,Last_Name,Number,time,id_Game")] pay pay)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(pay);
+            
+            pay.id_User = _userManager.GetUserId(User);
+            Gry gry=_context.Gry.Find(pay.id_Game);
+
+
+                _context.pay.Add(pay);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(end));
-            }
-            return View(pay);
+                return View("end", gry.Key);
         }
         [Authorize(Roles = "Admin")]
         // GET: pays/Edit/5

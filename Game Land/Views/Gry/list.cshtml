@@ -6,12 +6,40 @@
 
 <h1>Nasze Gry</h1>
 
-@foreach (var item in Model)
-{
-    <div class="card-lifted overflow-hidden rounded-3 mb-3">
-        <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
-        <img class="col-10" src="/Image/@Html.DisplayFor(modelItem => item.Url_image)">
+<div class="row">
+    <div class="col-sm-12 col-md-4 mb-3">
+        <input id="search" type="search" class="form-control"as placeholder="Search by name" />
+        <button class="btn-primary" onclick="onSearch()">Search</button>
     </div>
-    <a class="btn" asp-area="" asp-controller="pays" asp-action="Create"><button>Kup</button></a>
-    <div class="col-12"></div>
+</div>
+
+<div id="content" class="row">
+    @{
+        await Html.RenderPartialAsync("Search_Gry", Model);
+    }
+</div>
+
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        function onSearch() {
+            const text = $("#search").val();
+            const url = `/Gry/Search?text=${text}`;
+
+            $.ajax({
+                url: url,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    $("#content").html(result);
+                },
+                error: function (req, status) {
+                    console.log("error")
+                }
+            });
+        }
+    </script>
 }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Game_Land.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="text-center text-primary" style="background-image:url('/Image/tetris-308986_1920.png')">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -25,6 +25,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Gry" asp-action="list">Sklep</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Gry" asp-action="index">Menager Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="pays" asp-action="index">Pays</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -39,7 +48,7 @@
 
     <footer class="border-top footer text-muted ">
         <div class="container">
-            &copy; 2023 - Game_Land - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Game_Land - <a asp-area="" asp-controller="Home" asp-action="Kontakt">Kontakt</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

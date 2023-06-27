@@ -11,12 +11,13 @@
 </p>
 
 @foreach (var item in Model) {
-    <div class="card-lifted overflow-hidden rounded-3 mb-3">
+    <div class="card-lifted overflow-hidden rounded-3 mb-3 text-center" style="background-color:cadetblue">
 
        
 
         <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
-           <img class="col-10" src="/Image/@Html.DisplayFor(modelItem => item.Url_image)">
+        <img class="col-10" src="/Image/@Html.DisplayFor(modelItem => item.Url_image)">
+        <h6>@Html.DisplayFor(modelItem => item.Description)</h6>
         <h6>KEY:@Html.DisplayFor(modelItem => item.Key)</h6>
                 
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

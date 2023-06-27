@@ -14,7 +14,10 @@ namespace Game_Land.Controllers
         {
             _logger = logger;
         }
-
+        public IActionResult Kontakt()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
